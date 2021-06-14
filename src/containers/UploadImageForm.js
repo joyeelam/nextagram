@@ -6,6 +6,7 @@
 
 import {useState} from "react"
 import axios from "axios"
+import {toast} from "react-toastify"
 import Image from "react-graceful-image"
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormText, Input} from "reactstrap"
 
@@ -37,6 +38,15 @@ const UploadImageModal = () => {
         setPreviewImage(null)
         setImageFile(null)
         toggle()
+        toast.success("Image uploaded successfully.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
         window.location.reload()
       }
     })

@@ -12,6 +12,7 @@ import {useState} from "react"
 import {useHistory} from "react-router-dom"
 import axios from "axios"
 import {Button, Form, FormGroup, FormText, Input} from "reactstrap"
+import {toast} from "react-toastify"
 
 const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
 
@@ -25,6 +26,15 @@ const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
       // console.log(resp.data)
       localStorage.setItem("token", resp.data.auth_token)
       // console.log(localStorage.getItem("token"))
+      toast.success(`Hi ${username}, we've missed you.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        })
       history.push("/user/me")
       setCurrentUser(true)
     })
@@ -41,6 +51,7 @@ const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
             onChange={(e) => {changeUsername(e.target.value)}}
           />
         </FormGroup>
+        <br/>
         <FormGroup>
           <Input
             type="password"
@@ -48,6 +59,10 @@ const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
             value={password}
             onChange={(e)=>{changePassword(e.target.value)}}
           />
+        </FormGroup>
+        <hr/>
+        <FormGroup>
+          <Button color="success">Log in with Google</Button>
         </FormGroup>
         <FormText>
           Don't have an account? <Button color="link" onClick={switchLogin}>Sign Up.</Button>

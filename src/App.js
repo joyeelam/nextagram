@@ -6,6 +6,7 @@
 
 import {useState} from "react"
 import {Route, useHistory} from "react-router-dom"
+import {ToastContainer, toast} from "react-toastify"
 
 import Homepage from "./pages/Homepage"
 import UserProfilePage from "./pages/UserProfilePage"
@@ -25,10 +26,20 @@ function App() {
     localStorage.removeItem("token")
     setLoggedIn(!loggedIn)
     history.push("/")
+    toast.success('Logout successful, see you soon!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
   }
 
   return (
     <div className="App">
+      <ToastContainer />
       <NavigationBar logOut={logOut} />
       <Route exact path="/" component={Homepage} />
       <Route path="/user/:username" component={UserPage} />

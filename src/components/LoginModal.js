@@ -22,7 +22,7 @@ const LoginModal = (props) => {
         <ModalHeader toggle={toggle}>Sign In</ModalHeader>
         <ModalBody>
           {
-            isLogin ? <LoginForm switchLogin={switchLogin} setCurrentUser={setCurrentUser}/> : <SignUpForm switchLogin={switchLogin} setCurrentUser={setCurrentUser}/>
+            isLogin ? <LoginForm switchLogin={switchLogin} setCurrentUser={setCurrentUser} toggle={toggle}/> : <SignUpForm switchLogin={switchLogin} setCurrentUser={setCurrentUser} toggle={toggle}/>
           }
         </ModalBody>
       </Modal>

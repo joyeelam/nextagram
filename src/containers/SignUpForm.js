@@ -1,8 +1,4 @@
 // to work on:
-// email validation logic
-// password validation logic (min 6 characters)
-// confirm password validation logic
-// add create account using social media option
 // disable submit button when one of the fields is empty
 // Add react toast "User successfully created!"
 
@@ -11,41 +7,46 @@ import axios from "axios"
 import {useHistory} from "react-router-dom"
 import {Button, Form, FormGroup, Input, FormText, FormFeedback} from 'reactstrap'
 
-const SignUpForm = ({setCurrentUser, switchLogin}) => {
-
-  const [modal, setModal] = useState(false)
-  const toggle = () => setModal(!modal);
+const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, newPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const history = useHistory()
 
   const [delay, setDelay] = useState(null)
   const [usernameValid, setUsernameValid] = useState(true)
-  const [confirmPassword, setConfirmPassword] = useState(false)
+  const [emailValid, setEmailValid] = useState(false)
+  const emailRegex = /\S+@\S+\.\S+/
 
   const signUp = () => {
-    axios({
-      method: "POST",
-      url: "https://insta.nextacademy.com/api/v1/users/",
-      data: {
-        username: username,
-        email: email,
-        password: password
+    if (usernameValid) {
+      if (password === confirmPassword) {
+        axios({
+          method: "POST",
+          url: "https://insta.nextacademy.com/api/v1/users/",
+          data: {
+            username: username,
+            email: email,
+            password: password
+          }
+        })
+        .then(resp => {
+          // console.log(resp)
+          localStorage.setItem("token", resp.data.auth_token)
+          toggle()
+          history.push(`/user/${username}`)
+          setCurrentUser(true)
+        })
+        .catch(error => {
+          console.error(error.response)
+        })
       }
-    })
-    .then(resp => {
-      // console.log(resp)
-      localStorage.setItem("token", resp.data.auth_token)
-      toggle()
-      history.push(`/user/${username}`)
-      setCurrentUser(true)
-    })
-    .catch(error => {
-      console.error(error.response)
-    })
+    }
   }
+
+  // username validation logic
 
   const checkUsername = newUsername => {
     // console.log("Making API call to check username!")
@@ -98,41 +99,131 @@ const SignUpForm = ({setCurrentUser, switchLogin}) => {
     }
   }
 
+  // email validation logic
+
+  const handleEmailInput = e => {
+    const newEmail = e.target.value
+    setEmail(newEmail)
+    if (emailRegex.test(newEmail)) {
+      setEmailValid(true)
+    } else {
+      setEmailValid(false)
+    }
+  }
+
+  const getEmailInputProp = () => {
+    if (!email.length) {
+      return null
+    } if(emailValid) {
+      return {valid: true}
+    } else {
+      return {invalid: true}
+    }
+  }
+
+  const getEmailFormFeedback = () => {
+    if(!email.length) {
+      return null
+    }
+    if(emailValid) {
+      return <FormFeedback>Your email looks good!</FormFeedback>
+    } else {
+      return <FormFeedback>Please enter a valid email.</FormFeedback>
+    }
+  }
+
+  // password validation logic
+
+  const getPasswordInputProp = () => {
+    if(!password.length) {
+      return null
+    }
+    if(password.length <= 6) {
+      return {invalid: true}
+    }
+  }
+
+  const getPasswordFormFeedback = () => {
+    if(!password.length) {
+      return null
+    }
+    if(password.length <= 6) {
+      return <FormFeedback>Must be at least 6 characters.</FormFeedback>
+    } else {
+      return <FormFeedback>Password lock and loaded.</FormFeedback>
+    }
+  }
+
+  // confirm password validation logic
+
+  const getConfirmPasswordInputProp = () => {
+    if (password === confirmPassword) {
+      return {valid: true}
+    } else {
+      return {invalid: true}
+    }
+  }
+
+  const getConfirmPasswordFeedback = () => {
+    if (!confirmPassword.length) {
+      return null
+    }
+    if (password === confirmPassword) {
+      return <FormFeedback valid>Good to go!</FormFeedback>
+    }
+    if (password !== confirmPassword) {
+      return <FormFeedback invalid>Oops, passwords don't match. Try again.</FormFeedback>
+    }
+
+  }
+
   return (
     <div>
       <Form>
         <FormGroup>
           <Input
             type="text"
-            placeholder="Username"
+            placeholder="Enter a username between 6 and 20 characters"
             value={username}
             onChange={handleUsernameInput}
             {...getUsernameInputProp()}
           />
           {getUsernameFormFeedback()}
-          <FormText>Enter a username between 6 and 20 characters</FormText>
         </FormGroup>
+        <br/>
         <FormGroup>
           <Input
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e)=>{setEmail(e.target.value)}}
+            onChange={handleEmailInput}
+            {...getEmailInputProp()}
           />
+          {getEmailFormFeedback()}
         </FormGroup>
+        <br/>
         <FormGroup>
           <Input
             type="password"
-            placeholder="Password"
+            placeholder="Minimum 6 characters"
             value={password}
             onChange={(e)=>{newPassword(e.target.value)}}
+            {...getPasswordInputProp()}
           />
+          {getPasswordFormFeedback()}
+          <br/>
           <Input
             type="password"
-            placeholder="Confirm password"
+            placeholder="Retype password to confirm"
             value={confirmPassword}
             onChange={(e)=>{setConfirmPassword(e.target.value)}}
+            {...getConfirmPasswordInputProp()}
           />
+          {getConfirmPasswordFeedback()}
+        </FormGroup>
+        <hr/>
+        <FormGroup>
+          <Button color="success">Sign up with Google</Button>
         </FormGroup>
         <FormText>
           Already a member? <Button color="link" onClick={switchLogin}>Login here.</Button>
