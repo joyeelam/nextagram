@@ -7,20 +7,9 @@ import UserImages from "../containers/UserImages"
 
 const UserProfilePage = () => {
 
-  const [userProfile, setUserProfile] = useState([])
   const [userDetails, setUserDetails] = useState({})
 
   let {id} = useParams()
-
-  useEffect(()=>{
-    axios.get(`https://insta.nextacademy.com/api/v1/images?userId=${id}`)
-    .then(result => {
-      setUserProfile(result.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }, [id])
 
   useEffect(()=>{
     axios.get(`https://insta.nextacademy.com/api/v1/users/${id}`)
