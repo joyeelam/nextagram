@@ -4,7 +4,7 @@ import Image from "react-graceful-image"
 
 import LoadingIndicator from "../components/LoadingIndicator/LoadingIndicator"
 import UserImages from "../containers/UserImages"
-import UploadImageForm from "../containers/UploadImageForm"
+import UploadImageModal from "../containers/UploadImageModal"
 
 const UserPage = () => {
 
@@ -35,7 +35,7 @@ const UserPage = () => {
         <div className="userContainer">
           <p>Welcome back {currentUser.username}!</p>
           <Image src={currentUser.profile_picture} alt="profile" width="20%"/>
-          <UploadImageForm />
+          <UploadImageModal />
         </div>
         <hr/>
         <div className="userImagesContainer">

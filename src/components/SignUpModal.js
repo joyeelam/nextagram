@@ -1,5 +1,7 @@
+// fix CSS styling glassmorphism
+
 import { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import { Button, Modal, ModalBody} from 'reactstrap';
 
 import LoginForm from "../containers/LoginForm"
 import SignUpForm from "../containers/SignUpForm"
@@ -18,8 +20,7 @@ const SignUpModal = (props) => {
   return (
     <div>
       <Button color="link" onClick={toggle}>Sign Up</Button>
-      <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+      <Modal isOpen={modal} toggle={toggle} className="navbarmodal">
         <ModalBody>
           {
             isSignUp ? <SignUpForm switchLogin={switchSignUp} setCurrentUser={setCurrentUser} toggle={toggle}/> : <LoginForm  setCurrentUser={setCurrentUser} switchLogin={switchSignUp} toggle={toggle}/>

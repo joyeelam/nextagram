@@ -1,7 +1,5 @@
 // to work on:
-// disable search button if input is not valid or return to homepage if input is not valid
 // filter() search results
-// search result return even if it's capitalized or has space at the end - use trim()??
 
 import {useState, useEffect} from "react"
 import axios from "axios"
@@ -29,7 +27,7 @@ const UserSearch = () => {
   const userID = []
 
   for(let i=0; i<userDetails.length; i++) {
-    if(userDetails[i].hasOwnProperty('username') && userDetails[i].username === input) {
+    if(userDetails[i].hasOwnProperty('username') && userDetails[i].username === input.toLowerCase().trim()) {
       userID.push(userDetails[i].id)
     }
   }

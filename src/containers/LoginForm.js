@@ -1,12 +1,6 @@
 // to work on:
 // background: show background with transparency on
 // glassmorphism css for the modal?
-// validate username (alert if no such account exists)
-// validate password (alert if wrong password)
-// add login using social media option
-// disable submit button when one of the fields is empty
-// add react toast "Welcome back!" upon successful login
-// add react toast "Failed to login, try again." upon unsuccessful login
 
 import {useState} from "react"
 import {useHistory} from "react-router-dom"
@@ -38,10 +32,24 @@ const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
       history.push("/user/me")
       setCurrentUser(true)
     })
+    .catch(error => {
+      // console.error(error.response)
+      toast.error('Invalid username/password, please try again!', {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    })
   }
 
   return(
-    <div>
+    <div className="form">
+      <h4>Sign In</h4>
+      <hr/>
       <Form>
         <FormGroup>
           <Input
@@ -62,7 +70,7 @@ const LoginForm = ({setCurrentUser, toggle, switchLogin}) => {
         </FormGroup>
         <hr/>
         <FormGroup>
-          <Button color="success">Log in with Google</Button>
+          <Button color="success" disabled>Log in with Google</Button>
         </FormGroup>
         <FormText>
           Don't have an account? <Button color="link" onClick={switchLogin}>Sign Up.</Button>

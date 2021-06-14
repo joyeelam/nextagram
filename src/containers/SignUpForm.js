@@ -1,10 +1,10 @@
 // to work on:
 // disable submit button when one of the fields is empty
-// Add react toast "User successfully created!"
 
 import {useState} from 'react'
 import axios from "axios"
 import {useHistory} from "react-router-dom"
+import {toast} from "react-toastify"
 import {Button, Form, FormGroup, Input, FormText, FormFeedback} from 'reactstrap'
 
 const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
@@ -21,7 +21,7 @@ const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
   const emailRegex = /\S+@\S+\.\S+/
 
   const signUp = () => {
-    if (usernameValid) {
+    if (usernameValid && emailValid) {
       if (password === confirmPassword) {
         axios({
           method: "POST",
@@ -34,6 +34,15 @@ const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
         })
         .then(resp => {
           // console.log(resp)
+          toast.success(`User ${username} successfully created!`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
           localStorage.setItem("token", resp.data.auth_token)
           toggle()
           history.push(`/user/${username}`)
@@ -43,6 +52,8 @@ const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
           console.error(error.response)
         })
       }
+    } else {
+      return null
     }
   }
 
@@ -179,7 +190,9 @@ const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
 
   return (
     <div>
-      <Form>
+      <h4>Sign Up</h4>
+      <hr/>
+      <Form className="form">
         <FormGroup>
           <Input
             type="text"
@@ -223,7 +236,7 @@ const SignUpForm = ({toggle, setCurrentUser, switchLogin}) => {
         </FormGroup>
         <hr/>
         <FormGroup>
-          <Button color="success">Sign up with Google</Button>
+          <Button color="success" disabled>Sign up with Google</Button>
         </FormGroup>
         <FormText>
           Already a member? <Button color="link" onClick={switchLogin}>Login here.</Button>

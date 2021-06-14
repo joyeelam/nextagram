@@ -1,8 +1,3 @@
-// to work on:
-// styling of buttons > space out, consider icons?
-// add currentuser thumbnail picture when logged in ?
-// react toast > "Goodbye! See you soon!" upon logout
-
 import {useState} from "react"
 import {Link, useHistory} from "react-router-dom"
 import {Navbar, NavbarToggler, Collapse, Nav, NavItem, NavLink} from "reactstrap"
