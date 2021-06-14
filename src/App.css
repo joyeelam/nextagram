@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  background-color: #F4F6F6;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* styling for main page > profiles */
+
+.userProfile {
+  display: flex;
+  margin: 3rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.homeUserSection {
+  position: relative;
+  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 1rem;
+}
+
+.homeUserImages {
+  position: relative;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.userImages {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profileImage {
+  width: 150px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+.card {
+  margin: 0.5rem;
+}
+
+.cardImage {
+  width: 100%;
+  object-fit: cover;
+}
+
+.showButton a {
+  text-decoration: none;
   color: white;
+  background: transparent;
 }
 
-.App-link {
-  color: #61dafb;
+.showButton a:hover {
+  color: inherit;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* styling for navigation bar */
+
+.navbar {
+  padding-left: 30px;
+  padding-right: 15px;
+  background: rgba( 243, 243, 243, 0.10 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 0.0px );
+  -webkit-backdrop-filter: blur( 0.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.navbar a {
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.nextagram {
+  font-size: 1.4rem;
+  color: #819898;
+  background-color: transparent;
+}
+
+.userSearch {
+  display: flex;
+  flex-direction: row;
+}
+
+.searchBtn {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+/* styling for user container & user images container */
+
+.userContainer {
+  margin: 3rem;
+}
+
+.userImagesContainer {
+  margin: 3rem;
+}
+
+/* styling for upload image modal */
+
+.uploadCard {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
