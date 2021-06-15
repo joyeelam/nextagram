@@ -19,7 +19,7 @@ const SignUpModal = (props) => {
 
   return (
     <div>
-      <Button color="link" onClick={toggle}>Sign Up</Button>
+      <Button outline color="secondary" onClick={toggle}>Sign Up</Button>
       <Modal isOpen={modal} toggle={toggle} className="navbarmodal">
         <ModalBody>
           {

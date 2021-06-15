@@ -1,4 +1,5 @@
-import {useState, useEffect} from "react"
+import {useState} from "react"
+import {useHistory} from "react-router-dom"
 import axios from "axios"
 import Image from "react-graceful-image"
 
@@ -6,12 +7,13 @@ import LoadingIndicator from "../components/LoadingIndicator/LoadingIndicator"
 import UserImages from "../containers/UserImages"
 import UploadImageModal from "../containers/UploadImageModal"
 
-const UserPage = () => {
+const UserPage = ({loggedIn}) => {
 
   const [currentUser, updateCurrentUser] = useState(undefined)
   const [isLoading, setIsLoading] = useState(true)
+  const history = useHistory()
 
-  useEffect(()=>{
+  if(loggedIn) {
     axios.get("https://insta.nextacademy.com/api/v1/users/me", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
@@ -23,7 +25,9 @@ const UserPage = () => {
       setIsLoading(false)
       // console.log(currentUser)
     })
-  }, [])
+  } else {
+    history.push("/")
+  }
 
   if(isLoading) {
     return <LoadingIndicator/>

@@ -1,4 +1,4 @@
-// fix CSS styling glassmorphism 
+// fix CSS styling glassmorphism
 
 import { useState } from 'react';
 import { Button, Modal, ModalBody} from 'reactstrap';
@@ -19,7 +19,7 @@ const LoginModal = (props) => {
 
   return (
     <div>
-      <Button color="link" onClick={toggle}>Sign In</Button>
+      <Button outline color="secondary" onClick={toggle}>Sign In</Button>
       <Modal isOpen={modal} toggle={toggle} className="navbarmodal">
         <ModalBody>
           {

@@ -1,3 +1,5 @@
+// Netlify link > https://festive-roentgen-9759d0.netlify.app/
+
 // src/pages > homepage, my profile, user profile
 // src/containers (non-page components that contain logic)
 // > UserImages, UserSearch, Login API + validation, Signup API + validation, UploadImage API & validation
@@ -42,7 +44,7 @@ function App() {
       <ToastContainer />
       <NavigationBar logOut={logOut} />
       <Route exact path="/" component={Homepage} />
-      <Route path="/user/:username" component={UserPage} />
+      <Route path="/user/:username" component={()=>(<UserPage loggedIn={loggedIn}/>)} />
       <Route path="/users/:id" component={UserProfilePage}/>
     </div>
   );
